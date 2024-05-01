@@ -2,9 +2,9 @@ POST  http://localhost:5000/register
 Content-Type: application/json
 
 {
-    "username" : "raju",
-    "password" : "raju@123",
-    "role" : "user"
+    "username" : "sai charan",
+    "password" : "sai@123",
+    "role" : "admin"
 }
 ###
 
@@ -13,8 +13,8 @@ POST  http://localhost:5000/login
 Content-Type: application/json
 
 {
-    "username" : "saikiran",
-    "password" : "saikiran@123"
+    "username" : "ajay",
+    "password" : "ajay@123"
 }
 ###
 
@@ -26,7 +26,7 @@ Content-Type: application/json
     "title" : "News",
     "description" : "Get the latest news and breaking news updates on Business, Politics,",
     "status" : true,
-    "assigneeId" : 6,
+    "assigneeId" : 10,
     "createdAt" : "2024-04-13",
     "updatedAt" : "2024-05-01"
 }
@@ -37,7 +37,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNha
 Content-Type: application/json
 ###
 
-GET  http://localhost:5000/getAllData
+GET  http://localhost:5000/getAllUsersData
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNhaWtpcmFuIiwiaWF0IjoxNzE0NTUyNDA4fQ.R3m4RUiZOo1J2EHGT-2JcYh5R0LM97hE3hzLvcjRB9Y
 Content-Type: application/json
 ###
@@ -53,7 +53,7 @@ Content-Type: application/json
     "assigneeId" : 6,
     "createdAt" : "2024-04-13",
     "updatedAt" : "2024-06-01",
-    "taskId" : 5
+    "taskId" : 4
 }
 ###
 
@@ -62,5 +62,5 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InNha
 Content-Type: application/json
 
 {
-    "taskId" : 5
+    "taskId" : 4
 }

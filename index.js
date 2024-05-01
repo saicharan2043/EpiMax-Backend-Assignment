@@ -118,7 +118,7 @@ app.get("/getData", verifyUserIdentity, async (req, resp) => {
 });
 
 // for admin
-app.get("/getAllData", verifyUserIdentity, async (req, resp) => {
+app.get("/getAllUsersData", verifyUserIdentity, async (req, resp) => {
   const createQuery = `select tasks.id as taskId , username , title,  description , status , assignee_id , created_at , updated_at from users inner join tasks on users.id = tasks.assignee_id order by updated_at desc`;
   const response = await db.all(createQuery);
   resp.send(response);
