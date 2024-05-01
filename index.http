@@ -28,7 +28,8 @@ Content-Type: application/json
     "status" : true,
     "assigneeId" : 10,
     "createdAt" : "2024-04-13",
-    "updatedAt" : "2024-05-01"
+    "updatedAt" : "2024-05-01",
+    "category" : "All"
 }
 ###
 
@@ -53,7 +54,8 @@ Content-Type: application/json
     "assigneeId" : 6,
     "createdAt" : "2024-04-13",
     "updatedAt" : "2024-06-01",
-    "taskId" : 4
+    "taskId" : 4,
+    "category" : "All"
 }
 ###
 
@@ -64,3 +66,4 @@ Content-Type: application/json
 {
     "taskId" : 4
 }
+###

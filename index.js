@@ -102,10 +102,17 @@ app.post("/login", async (req, resp) => {
 
 // for users and admin
 app.post("/addtask", verifyUserIdentity, async (req, resp) => {
-  const { title, description, status, assigneeId, createdAt, updatedAt } =
-    req.body;
+  const {
+    title,
+    description,
+    status,
+    assigneeId,
+    createdAt,
+    updatedAt,
+    category,
+  } = req.body;
   try {
-    const queryOfAddTask = `insert into tasks(title , description ,status , assignee_id , created_at , updated_at) values('${title}' , '${description}' ,${status} , ${assigneeId} , '${createdAt}' , '${updatedAt}')`;
+    const queryOfAddTask = `insert into tasks(title , description ,status , assignee_id , created_at , updated_at , category) values('${title}' , '${description}' ,${status} , ${assigneeId} , '${createdAt}' , '${updatedAt}' , '${category}')`;
     const response = await db.run(queryOfAddTask);
     resp.status(200);
     resp.send({ taskId: response.lastID });
@@ -141,9 +148,10 @@ app.put("/updateData", verifyUserIdentity, async (req, resp) => {
     createdAt,
     updatedAt,
     taskId,
+    category,
   } = req.body;
   const createQuery = `update tasks set title = '${title}' , description = '${description}' , 
-  status = ${status} , assignee_id = ${assigneeId}, created_at='${createdAt}' , updated_at ='${updatedAt}' where id = ${taskId}`;
+  status = ${status} , assignee_id = ${assigneeId}, created_at='${createdAt}' , updated_at ='${updatedAt}' , category = '${category}' where id = ${taskId}`;
   await db.run(createQuery);
   resp.status(200);
   resp.send({ msg: "task updated successfuly" });
