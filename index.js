@@ -68,9 +68,11 @@ app.post("/register", async (req, resp) => {
     const storeDataQuery = `insert into users(username , password_hash , role) values('${username}', '${hashedPassword}' , '${role}')`;
     const response = await db.run(storeDataQuery);
     const token = jwtToken.sign({ username }, secretKey);
-    resp.send({ userId: response.lastID, role, jwtToken: token }).status(200);
+    resp.status(200);
+    resp.send({ userId: response.lastID, role, jwtToken: token });
   } else {
-    resp.send({ error: "This username is already registered" }).status(401);
+    resp.status(400);
+    resp.send({ error: "This username is already registered" });
   }
 });
 
@@ -89,10 +91,12 @@ app.post("/login", async (req, resp) => {
         .send({ userId: response.id, role: response.role, jwtToken: token })
         .status(200);
     } else {
-      resp.send({ error: "password is wrong" }).status(401);
+      resp.status(400);
+      resp.send({ error: "password is wrong" });
     }
   } else {
-    resp.send({ error: "This username is not registered" }).status(401);
+    resp.status(400);
+    resp.send({ error: "This username is not registered" });
   }
 });
 
@@ -103,7 +107,8 @@ app.post("/addtask", verifyUserIdentity, async (req, resp) => {
   try {
     const queryOfAddTask = `insert into tasks(title , description ,status , assignee_id , created_at , updated_at) values('${title}' , '${description}' ,${status} , ${assigneeId} , '${createdAt}' , '${updatedAt}')`;
     const response = await db.run(queryOfAddTask);
-    resp.send({ taskId: response.lastID }).status(200);
+    resp.status(200);
+    resp.send({ taskId: response.lastID });
   } catch (e) {
     console.log(e);
   }
@@ -114,14 +119,16 @@ app.get("/getData", verifyUserIdentity, async (req, resp) => {
   const { user_id } = req.query;
   const createQuery = `select *from tasks where assignee_id = ${user_id} order by updated_at desc`;
   const response = await db.all(createQuery);
-  resp.send(response).status(200);
+  resp.status(200);
+  resp.send(response);
 });
 
 // for admin
 app.get("/getAllUsersData", verifyUserIdentity, async (req, resp) => {
   const createQuery = `select tasks.id as taskId , username , title,  description , status , assignee_id , created_at , updated_at from users inner join tasks on users.id = tasks.assignee_id order by updated_at desc`;
   const response = await db.all(createQuery);
-  resp.send(response).status(200);
+  resp.status(200);
+  resp.send(response);
 });
 
 //for users and admin
@@ -138,7 +145,8 @@ app.put("/updateData", verifyUserIdentity, async (req, resp) => {
   const createQuery = `update tasks set title = '${title}' , description = '${description}' , 
   status = ${status} , assignee_id = ${assigneeId}, created_at='${createdAt}' , updated_at ='${updatedAt}' where id = ${taskId}`;
   await db.run(createQuery);
-  resp.send({ msg: "task updated successfuly" }).status(200);
+  resp.status(200);
+  resp.send({ msg: "task updated successfuly" });
 });
 
 // users and admin
@@ -146,5 +154,6 @@ app.delete("/deleteTask", verifyUserIdentity, async (req, resp) => {
   const { taskId } = req.body;
   const createQuery = `delete from tasks where id=${taskId}`;
   await db.run(createQuery);
-  resp.send({ msg: "task deleted successfuly" }).status(200);
+  resp.status(200);
+  resp.send({ msg: "task deleted successfuly" });
 });
